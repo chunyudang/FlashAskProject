@@ -1,0 +1,39 @@
+# FlashAsk 后端服务部署
+name: Server CI/CD
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'server/**'
+      - '.github/workflows/server-deploy.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: server/package-lock.json
+
+      - name: Install dependencies
+        run: cd server && npm ci
+
+      - name: Run lint
+        run: cd server && npm run lint
+        continue-on-error: true
+
+      - name: Deploy to server
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          echo "Deploying server..."
+          # TODO: Add actual deploy commands (rsync, pm2, docker, etc.)
+          # rsync -avz --delete server/ user@$DEPLOY_HOST:/app/server/
+          # ssh user@$DEPLOY_HOST "cd /app/server && npm ci && pm2 restart flash-ask-server"

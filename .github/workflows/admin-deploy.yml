@@ -1,0 +1,37 @@
+# FlashAsk 后台管理系统部署
+name: Admin CI/CD
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'admin/**'
+      - '.github/workflows/admin-deploy.yml'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: admin/package-lock.json
+
+      - name: Install dependencies
+        run: cd admin && npm ci
+
+      - name: Build
+        run: cd admin && npm run build
+
+      - name: Deploy to server
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          echo "Deploying admin dashboard..."
+          # TODO: Upload dist/ to server
+          # rsync -avz --delete admin/dist/ user@$DEPLOY_HOST:/var/www/admin/
