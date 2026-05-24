@@ -1,16 +1,14 @@
-const express = require('express');
-const router = express.Router();
+const Router = require('@koa/router');
+const router = new Router({ prefix: '/api/progress' });
 
-// GET /api/progress — 获取用户进度
-router.get('/', (req, res) => {
-  // TODO
-  res.json({});
+router.get('/', (ctx) => {
+  // TODO: 获取用户进度
+  ctx.body = {};
 });
 
-// POST /api/progress/unlock — 解锁下一关
-router.post('/unlock', (req, res) => {
-  // TODO
-  res.json({ success: true });
+router.post('/unlock', (ctx) => {
+  // TODO: 解锁下一关
+  ctx.body = { success: true };
 });
 
 module.exports = router;

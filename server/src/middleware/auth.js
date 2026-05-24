@@ -1,32 +1,38 @@
 const jwt = require('jsonwebtoken');
 
 // 用户端 JWT 鉴权
-function authMiddleware(req, res, next) {
-  const token = req.headers.authorization?.split(' ')[1];
+async function authMiddleware(ctx, next) {
+  const token = ctx.headers.authorization?.split(' ')[1];
   if (!token) {
-    return res.status(401).json({ error: '未登录' });
+    ctx.status = 401;
+    ctx.body = { error: '未登录' };
+    return;
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.userId;
-    next();
+    ctx.state.userId = decoded.userId;
+    await next();
   } catch {
-    res.status(401).json({ error: '登录已过期' });
+    ctx.status = 401;
+    ctx.body = { error: '登录已过期' };
   }
 }
 
 // 管理端 JWT 鉴权
-function adminAuthMiddleware(req, res, next) {
-  const token = req.headers.authorization?.split(' ')[1];
+async function adminAuthMiddleware(ctx, next) {
+  const token = ctx.headers.authorization?.split(' ')[1];
   if (!token) {
-    return res.status(401).json({ error: '未登录' });
+    ctx.status = 401;
+    ctx.body = { error: '未登录' };
+    return;
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.adminId = decoded.adminId;
-    next();
+    ctx.state.adminId = decoded.adminId;
+    await next();
   } catch {
-    res.status(401).json({ error: '登录已过期' });
+    ctx.status = 401;
+    ctx.body = { error: '登录已过期' };
   }
 }
 

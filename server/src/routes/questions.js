@@ -1,16 +1,14 @@
-const express = require('express');
-const router = express.Router();
+const Router = require('@koa/router');
+const router = new Router({ prefix: '/api/questions' });
 
-// GET /api/questions/:levelId — 获取关卡题目
-router.get('/:levelId', (req, res) => {
-  // TODO
-  res.json([]);
+router.get('/:levelId', (ctx) => {
+  // TODO: 获取关卡题目
+  ctx.body = [];
 });
 
-// POST /api/questions/submit — 提交答题结果
-router.post('/submit', (req, res) => {
-  // TODO
-  res.json({ score: 0, correct: 0, total: 6 });
+router.post('/submit', (ctx) => {
+  // TODO: 提交答题结果
+  ctx.body = { score: 0, correct: 0, total: 6 };
 });
 
 module.exports = router;

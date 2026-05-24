@@ -1,10 +1,9 @@
-const express = require('express');
-const router = express.Router();
+const Router = require('@koa/router');
+const router = new Router({ prefix: '/api/categories' });
 
-// GET /api/categories — 获取所有学科
-router.get('/', (req, res) => {
-  // TODO
-  res.json([]);
+router.get('/', (ctx) => {
+  // TODO: 获取所有学科
+  ctx.body = [];
 });
 
 module.exports = router;

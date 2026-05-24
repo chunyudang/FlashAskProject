@@ -1,10 +1,9 @@
-const express = require('express');
-const router = express.Router();
+const Router = require('@koa/router');
+const router = new Router({ prefix: '/api/levels' });
 
-// GET /api/levels/:categoryId — 获取某个学科的关卡列表
-router.get('/:categoryId', (req, res) => {
-  // TODO
-  res.json([]);
+router.get('/:categoryId', (ctx) => {
+  // TODO: 获取某个学科的关卡列表
+  ctx.body = [];
 });
 
 module.exports = router;
