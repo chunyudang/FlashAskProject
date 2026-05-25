@@ -9,14 +9,13 @@
     "init-db": "node database/init.js"
   },
   "dependencies": {
-    "koa": "^2.15.0",
-    "@koa/router": "^12.0.0",
     "@koa/cors": "^5.0.0",
-    "koa-body": "^6.0.0",
-    "better-sqlite3": "^11.0.0",
-    "jsonwebtoken": "^9.0.0",
+    "@koa/router": "^12.0.0",
     "bcryptjs": "^2.4.3",
-    "dotenv": "^16.4.0"
-  },
-  "devDependencies": {}
+    "better-sqlite3": "^12.10.0",
+    "dotenv": "^16.4.0",
+    "jsonwebtoken": "^9.0.0",
+    "koa": "^2.15.0",
+    "koa-body": "^6.0.0"
+  }
 }

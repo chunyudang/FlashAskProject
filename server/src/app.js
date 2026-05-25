@@ -15,6 +15,19 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(koaBody());
 
+// Error handling middleware
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (err) {
+    console.error('Request error:', err);
+    ctx.status = err.status || err.statusCode || 500;
+    ctx.body = {
+      error: err.message || 'Internal server error'
+    };
+  }
+});
+
 // Routes
 app.use(require('./routes/auth').routes());
 app.use(require('./routes/categories').routes());
@@ -29,11 +42,9 @@ router.get('/api/health', (ctx) => {
 });
 app.use(router.routes());
 
-// Error handler
+// Global error handler
 app.on('error', (err, ctx) => {
   console.error('Server error:', err);
-  ctx.status = ctx.status || 500;
-  ctx.body = { error: 'Internal server error' };
 });
 
 app.listen(PORT, () => {

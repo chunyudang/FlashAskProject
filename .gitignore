@@ -41,3 +41,7 @@ admin/dist/
 
 # Server
 server/coverage/
+*.db
+*.db-shm
+*.db-wal
+server/.env
