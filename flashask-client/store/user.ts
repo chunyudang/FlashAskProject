@@ -33,6 +33,7 @@ export const restoreToken = (): void => {
 export const doLogin = async (phone: string, password: string): Promise<{ success: boolean; needRegister?: boolean; message?: string }> => {
   try {
     const res = await apiLogin({ phone, password })
+	//console.log('doLogin:', res);
     state.token = res.token
     state.dbToken = res.dbToken || ''
     state.user = res.user
@@ -41,6 +42,7 @@ export const doLogin = async (phone: string, password: string): Promise<{ succes
     uni.setStorageSync('user', res.user)
     return { success: true }
   } catch (e: any) {
+	// console.log('doLogin:', e);
     if (e.message === '该手机号未注册') return { success: false, needRegister: true }
     return { success: false, message: e.message || '登录失败' }
   }

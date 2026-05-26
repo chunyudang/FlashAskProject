@@ -2,7 +2,7 @@
  * @Author: dangchy 14676620+dangchy@user.noreply.gitee.com
  * @Date: 2026-05-25 18:10:01
  * @LastEditors: dangchy 14676620+dangchy@user.noreply.gitee.com
- * @LastEditTime: 2026-05-26 09:39:47
+ * @LastEditTime: 2026-05-26 11:43:40
  * @FilePath: /FlashAskProject/flashask-client/api/index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -35,7 +35,7 @@ const request = <T = any>({ url, method = 'GET', data = {}, needAuth = false }: 
           uni.removeStorageSync('token');
           uni.removeStorageSync('user');
           uni.reLaunch({ url: '/pages/login/login' });
-          reject(new Error('登录已过期'));
+          reject(new Error('登录已过期:401'));
         } else {
           reject(new Error((res.data as any)?.message || '请求失败'));
         }
