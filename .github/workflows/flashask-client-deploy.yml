@@ -1,0 +1,35 @@
+# FlashAsk 用户端 App 构建
+name: FlashAsk Client CI/CD
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'flashask-client/**'
+      - '.github/workflows/flashask-client-deploy.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: flashask-client/package-lock.json
+
+      - name: Install dependencies
+        run: cd flashask-client && npm ci
+
+      - name: Build H5
+        run: cd flashask-client && npm run build:h5
+
+      - name: Deploy H5
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          echo "Deploying client H5..."
+          # TODO: Upload flashask-client/dist/build/h5/ to server

@@ -7,7 +7,7 @@
 
 ```
 flash-ask/
-├── client/          # 用户端 App (UniApp)
+├── flashask-client/          # 用户端 App (UniApp)
 ├── admin/           # 后台管理系统 (React + Ant Design)
 ├── server/          # 后端 API 服务 (Node.js + Express)
 ├── docs/            # 项目文档
@@ -37,15 +37,14 @@ npm install
 npm run dev
 ```
 
-### App 端
+### App 端（使用 HBuilderX）
 
-```bash
-cd client
-npm install
-npm run dev:mp-weixin   # 微信小程序
-npm run dev:h5          # H5
-npm run dev:app         # App
-```
+用 HBuilderX 打开 `flashask-client` 目录，点击「运行」→「运行到浏览器」或「运行到手机/模拟器」
+
+支持编译目标：
+- **H5**：运行到浏览器
+- **微信小程序**：运行到微信小程序
+- **App**：运行到手机/模拟器
 
 ## 技术栈
 

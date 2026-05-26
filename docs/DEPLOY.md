@@ -49,7 +49,7 @@ server {
 
     # App H5
     location / {
-        root /var/www/client;
+        root /var/www/flashask-client;
         try_files $uri $uri/ /index.html;
     }
 }

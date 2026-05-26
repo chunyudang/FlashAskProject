@@ -19,7 +19,7 @@ flash-ask/                          # Project root: /Users/dcy/Workspace/FlashAs
 │   ├── PRD.md                      # Product requirements document
 │   ├── API.md                      # API interface documentation
 │   └── DEPLOY.md                   # Deployment guide
-├── client/                         # UniApp user-facing app (Vue 3)
+├── flashask-client/                         # UniApp user-facing app (Vue 3)
 │   ├── src/
 │   │   ├── api/                    # API call modules
 │   │   ├── store/                  # Pinia stores

@@ -1,0 +1,73 @@
+{
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "闪问"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/category/category",
+			"style": {
+				"navigationBarTitleText": "选择学科"
+			}
+		},
+		{
+			"path": "pages/level/level",
+			"style": {
+				"navigationBarTitleText": "关卡列表"
+			}
+		},
+		{
+			"path": "pages/quiz/quiz",
+			"style": {
+				"navigationBarTitleText": "答题"
+			}
+		},
+		{
+			"path": "pages/result/result",
+			"style": {
+				"navigationBarTitleText": "答题结果"
+			}
+		},
+		{
+			"path": "pages/profile/profile",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "闪问",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#F5F7FA"
+	},
+	"tabBar": {
+		"color": "#9CA3AF",
+		"selectedColor": "#2563EB",
+		"backgroundColor": "#FFFFFF",
+		"borderStyle": "black",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/tab/home.svg",
+				"selectedIconPath": "static/tab/home-active.svg"
+			},
+			{
+				"pagePath": "pages/profile/profile",
+				"text": "我的",
+				"iconPath": "static/tab/profile.svg",
+				"selectedIconPath": "static/tab/profile-active.svg"
+			}
+		]
+	},
+	"uniIdRouter": {}
+}
