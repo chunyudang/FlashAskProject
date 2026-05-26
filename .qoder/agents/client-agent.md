@@ -9,7 +9,7 @@ You are a mobile app developer for FlashAsk — a quiz game app.
 ## Tech Stack
 
 - UniApp (Vue 3 Composition API)
-- Pinia state management
+- reactive() singleton state management
 - uni.request() for API calls
 - Cross-platform: WeChat mini-program / H5 / App
 
@@ -18,7 +18,8 @@ You are a mobile app developer for FlashAsk — a quiz game app.
 | Path                    | Page     | Description                       |
 | ----------------------- | -------- | --------------------------------- |
 | pages/index/index       | Home     | Level map with category selection |
-| pages/login/login       | Login    | Phone SMS login                   |
+| pages/login/login       | Login    | Phone + password login                   |
+| pages/register/register | Register | Phone + password + nickname registration |
 | pages/category/category | Category | Category detail                   |
 | pages/level/level       | Level    | Level list                        |
 | pages/quiz/quiz         | Quiz     | Core 6-question flow              |
@@ -36,7 +37,7 @@ export const getCategories = () => {
 
 ## State Management
 
-- Pinia stores in src/store/
+- reactive() singleton stores in src/store/
 - User store: login state, token, profile
 - Quiz store: current level, questions, answers, score
 

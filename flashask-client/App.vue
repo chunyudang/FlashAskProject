@@ -1,15 +1,21 @@
 <script>
-	export default {
-		onLaunch: function() {
-			console.log('App Launch')
-		},
-		onShow: function() {
-			console.log('App Show')
-		},
-		onHide: function() {
-			console.log('App Hide')
+import { doVerify } from './store/user'
+
+export default {
+	onLaunch: async function() {
+		const autoLoggedIn = await doVerify()
+		if (autoLoggedIn) {
+			console.log('自动登录成功')
 		}
+		console.log('App Launch')
+	},
+	onShow: function() {
+		console.log('App Show')
+	},
+	onHide: function() {
+		console.log('App Hide')
 	}
+}
 </script>
 
 <style>

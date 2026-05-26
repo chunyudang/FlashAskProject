@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS users (
   nickname TEXT NOT NULL,
   avatar_url TEXT DEFAULT '',
   phone TEXT UNIQUE NOT NULL,
+  password_hash TEXT DEFAULT '',
+  token TEXT DEFAULT '',
   total_score INTEGER DEFAULT 0,
   total_correct INTEGER DEFAULT 0,
   total_wrong INTEGER DEFAULT 0,

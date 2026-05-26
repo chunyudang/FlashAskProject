@@ -24,11 +24,12 @@ const now = new Date().toISOString();
 // ========== 1. 测试用户 ==========
 console.log('📝 创建测试用户...');
 
+const testUserPwd = bcrypt.hashSync('123456', 10);
 const testUserId = crypto.randomUUID();
 db.prepare(`
-  INSERT OR IGNORE INTO users (id, nickname, phone, total_score, total_correct, total_wrong, last_login_at, created_at)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-`).run(testUserId, '测试用户', '13800000000', 0, 0, 0, now, now);
+  INSERT OR IGNORE INTO users (id, nickname, phone, password_hash, total_score, total_correct, total_wrong, last_login_at, created_at)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+`).run(testUserId, '测试用户', '13800000000', testUserPwd, 0, 0, 0, now, now);
 
 // ========== 2. 测试管理员 ==========
 console.log('📝 创建测试管理员...');

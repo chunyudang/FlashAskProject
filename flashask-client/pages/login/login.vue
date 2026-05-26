@@ -11,15 +11,16 @@
       />
 
       <input
-        v-if="needRegister"
-        class="nickname-input" type="text" maxlength="12"
-        :value="nickname" @input="onNicknameInput"
-        placeholder="请输入昵称" placeholder-class="placeholder"
+        class="password-input" type="password" maxlength="20"
+        :value="password" @input="onPasswordInput"
+        placeholder="请输入密码" placeholder-class="placeholder"
       />
 
       <button class="submit-btn" :loading="loading" :disabled="loading" @tap="handleSubmit">
-        {{ needRegister ? '注册并登录' : '登录' }}
+        登录
       </button>
+
+      <text class="register-link" @tap="goRegister">还没有账号？立即注册</text>
 
       <text class="error" v-if="errorMsg">{{ errorMsg }}</text>
     </view>
@@ -28,11 +29,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { doLogin, doRegister } from '../../store/user'
+import { doLogin } from '../../store/user'
 
 const phone = ref('')
-const nickname = ref('')
-const needRegister = ref(false)
+const password = ref('')
 const loading = ref(false)
 const errorMsg = ref('')
 
@@ -41,8 +41,8 @@ const onPhoneInput = (e: any): void => {
   errorMsg.value = ''
 }
 
-const onNicknameInput = (e: any): void => {
-  nickname.value = e.detail.value
+const onPasswordInput = (e: any): void => {
+  password.value = e.detail.value
   errorMsg.value = ''
 }
 
@@ -51,47 +51,41 @@ const handleSubmit = async (): Promise<void> => {
     errorMsg.value = '请输入正确的手机号'
     return
   }
-  if (needRegister.value && !nickname.value.trim()) {
-    errorMsg.value = '请输入昵称'
+  if (!password.value) {
+    errorMsg.value = '请输入密码'
     return
   }
 
   loading.value = true
   errorMsg.value = ''
 
-  if (needRegister.value) {
-    const res = await doRegister(phone.value, nickname.value.trim())
-    if (res.success) uni.navigateBack()
-    else errorMsg.value = res.message || ''
+  const res = await doLogin(phone.value, password.value)
+
+  if (res.success) {
+    uni.navigateBack()
+  } else if (res.needRegister) {
+    uni.navigateTo({ url: `/pages/register/register?phone=${phone.value}` })
   } else {
-    const res = await doLogin(phone.value)
-    if (res.success) {
-      uni.navigateBack()
-    } else if (res.needRegister) {
-      needRegister.value = true
-    } else {
-      errorMsg.value = res.message || ''
-    }
+    errorMsg.value = res.message || '登录失败'
   }
 
   loading.value = false
 }
+
+const goRegister = (): void => {
+  uni.navigateTo({ url: `/pages/register/register?phone=${phone.value}` })
+}
 </script>
 
 <style scoped>
-.login { display: flex; justify-content: center; align-items: center; min-height: 70vh; padding: 0 48rpx; }
-.login-box { width: 100%; text-align: center; }
-.title { font-size: 44rpx; font-weight: 700; color: #1f2937; display: block; }
-.subtitle { font-size: 28rpx; color: #9ca3af; display: block; margin-top: 12rpx; margin-bottom: 64rpx; }
-.phone-input, .nickname-input {
-  width: 100%; height: 88rpx; background: #f9fafb; border-radius: 12rpx;
-  padding: 0 24rpx; font-size: 30rpx; margin-bottom: 24rpx; box-sizing: border-box;
-}
-.placeholder { color: #d1d5db; }
-.submit-btn {
-  width: 100%; height: 88rpx; line-height: 88rpx; background: #2563eb;
-  color: #fff; font-size: 32rpx; border-radius: 12rpx; border: none; margin-top: 16rpx;
-}
+.login { min-height: 100vh; background: linear-gradient(180deg, #EEF2FF 0%, #F5F7FA 100%); display: flex; align-items: center; justify-content: center; padding: 0 48rpx; }
+.login-box { width: 100%; background: #fff; border-radius: 24rpx; padding: 64rpx 40rpx; box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.06); }
+.title { font-size: 40rpx; font-weight: 700; color: #1f2937; display: block; text-align: center; }
+.subtitle { font-size: 26rpx; color: #9ca3af; display: block; text-align: center; margin-top: 8rpx; margin-bottom: 48rpx; }
+.phone-input, .password-input { width: 100%; height: 88rpx; border: 2rpx solid #e5e7eb; border-radius: 12rpx; padding: 0 24rpx; font-size: 28rpx; box-sizing: border-box; margin-bottom: 24rpx; }
+.submit-btn { width: 100%; height: 88rpx; line-height: 88rpx; font-size: 32rpx; font-weight: 600; color: #fff; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 12rpx; border: none; margin-top: 16rpx; }
 .submit-btn[disabled] { opacity: 0.6; }
-.error { display: block; margin-top: 24rpx; font-size: 24rpx; color: #ef4444; }
+.error { display: block; text-align: center; color: #ef4444; font-size: 26rpx; margin-top: 20rpx; }
+.register-link { display: block; text-align: center; color: #2563eb; font-size: 26rpx; margin-top: 32rpx; text-decoration: underline; }
+.placeholder { color: #d1d5db; font-size: 28rpx; }
 </style>
