@@ -50,7 +50,9 @@ const loading = ref(true)
 onMounted(async () => {
   try {
     const res = await getCategories()
+	console.log("data res:", res);
     categories.value = res.data || []
+	console.log("categories.value:", categories);
   } catch {
     uni.showToast({ title: '加载失败', icon: 'none' })
   } finally {
